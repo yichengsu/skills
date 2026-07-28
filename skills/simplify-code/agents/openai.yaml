@@ -1,0 +1,4 @@
+interface:
+  display_name: "Simplify Code"
+  short_description: "Safely simplify recent code changes"
+  default_prompt: "Use $simplify-code to review and simplify my recent code changes without changing behavior."
