@@ -12,13 +12,16 @@ Improve recent code changes without changing what the software does. Optimize fo
 1. Read every applicable `AGENTS.md` plus relevant project, style, and contribution documentation.
 2. Use the scope explicitly named by the user. Otherwise inspect:
    - `git status --short`
+   - `git diff HEAD`
    - `git diff`
    - `git diff --cached`
-3. If Git shows no changes, use files edited in the current task. If that is also unclear, ask for the intended scope.
-4. Read enough surrounding implementation and tests to understand behavior; do not judge isolated diff hunks.
-5. Identify generated, vendored, lock, snapshot, migration, and public API files. Do not edit them unless they are explicitly in scope and safe to regenerate.
-6. Discover the narrowest relevant test, type-check, lint, and build commands from repository instructions and configuration.
-7. Preserve unrelated user changes. Never reset, overwrite, or reformat unrelated work.
+3. Treat `git diff HEAD` as the effective tracked code to simplify. Use the separate working-tree and cached diffs to record whether each path is staged, unstaged, or both, including partial staging.
+4. Do not modify the Git index by default. Apply simplifications to the working tree only. For staged or partially staged paths, preserve the existing staged snapshot and tell the user that the simplification is unstaged. Restage only when the user explicitly asks, and never stage unrelated hunks or replace partial staging with whole-file staging.
+5. If Git shows no changes, use files edited in the current task. If that is also unclear, ask for the intended scope.
+6. Read enough surrounding implementation and tests to understand behavior; do not judge isolated diff hunks.
+7. Identify generated, vendored, lock, snapshot, migration, and public API files. Do not edit them unless they are explicitly in scope and safe to regenerate.
+8. Discover the narrowest relevant test, type-check, lint, and build commands from repository instructions and configuration.
+9. Preserve unrelated user changes. Never reset, overwrite, or reformat unrelated work.
 
 ## 2. Choose the review mode
 
@@ -121,6 +124,7 @@ When equivalence is uncertain, skip the edit and report the opportunity.
 4. Preserve comments that explain rationale, invariants, constraints, or non-obvious behavior; remove only comments that restate obvious code.
 5. Inspect the diff after every substantial edit for accidental expansion, behavior changes, generated churn, or unrelated formatting.
 6. If a finding becomes invalid after another edit, drop it rather than forcing it into the result.
+7. Never run `git add`, `git reset`, `git restore --staged`, or an equivalent index mutation unless the user explicitly requests it. When restaging is authorized, preserve partial staging and unrelated hunks.
 
 The main agent alone owns all file edits.
 
@@ -137,7 +141,8 @@ When practical for a risky refactor, run a focused baseline before editing and r
 
 After verification:
 
-- inspect the final diff against the original scope
+- inspect `git status --short`, `git diff`, `git diff --cached`, and `git diff HEAD`
+- confirm the Git index was unchanged unless the user explicitly requested restaging
 - confirm no public interface or observable behavior changed
 - confirm the result is actually easier to understand
 - confirm no unrelated user changes were altered
@@ -150,6 +155,7 @@ Keep the final response concise and include:
 
 - what was simplified and why it is clearer
 - verification commands and outcomes
+- final staged/unstaged status, including whether simplified edits still need staging
 - any skipped risky opportunities
 - any likely bugs noticed but intentionally left unchanged
 
