@@ -13,7 +13,9 @@ Simplifies recently changed code while preserving externally observable behavior
 
 ## Install
 
-Install `simplify-code` with the Skills CLI.
+Install `simplify-code` with the Skills CLI. Project installation is the default.
+
+### Project installation
 
 Using npm:
 
@@ -25,6 +27,20 @@ Using Bun:
 
 ```bash
 bunx skills add https://github.com/yichengsu/skills --skill simplify-code
+```
+
+### Global installation
+
+Using npm:
+
+```bash
+npx skills add https://github.com/yichengsu/skills --skill simplify-code -g
+```
+
+Using Bun:
+
+```bash
+bunx skills add https://github.com/yichengsu/skills --skill simplify-code -g
 ```
 
 After installation, restart your agent if it does not discover the skill automatically.
