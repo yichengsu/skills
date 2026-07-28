@@ -1,6 +1,7 @@
 # Agent Skills
 
 [![skills.sh](https://skills.sh/b/yichengsu/skills)](https://skills.sh/yichengsu/skills)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A collection of reusable skills for AI coding agents.
 
@@ -12,10 +13,18 @@ Simplifies recently changed code while preserving externally observable behavior
 
 ## Install
 
-Install `simplify-code` with the Skills CLI:
+Install `simplify-code` with the Skills CLI.
+
+Using npm:
 
 ```bash
 npx skills add https://github.com/yichengsu/skills --skill simplify-code
+```
+
+Using Bun:
+
+```bash
+bunx skills add https://github.com/yichengsu/skills --skill simplify-code
 ```
 
 After installation, restart your agent if it does not discover the skill automatically.
@@ -40,4 +49,4 @@ skills/
 
 ## License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
