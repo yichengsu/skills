@@ -5,11 +5,11 @@ description: Develop coding goals through independent plan, simplification, and 
 
 # Goal Dev Workflow
 
-Keep the process proportional to the task. The main agent owns edits; subagents perform only their assigned, read-only reviews.
+Keep the process proportional to the task. The main agent owns edits and verification; subagents perform only their assigned, read-only reviews.
 
 ## Workflow
 
-1. Establish the goal, scope, and acceptance criteria. Propose a plan and have an independent subagent review it. Resolve substantive issues and get the final plan approved before implementation.
+1. Establish the goal, scope, and acceptance criteria. Propose a plan and have an independent subagent review it. Revise the plan and repeat independent review until the reviewer confirms the final plan has no unresolved valid substantive findings, then begin implementation.
 2. Implement and verify the plan. Return to plan review when the design, public contracts, or acceptance criteria materially change.
 3. Have an independent subagent review with [simplify-code](../simplify-code/SKILL.md). Apply worthwhile simplifications and verify behavior is preserved. Then have a different independent subagent review correctness, compatibility, edge cases, and relevant tests.
 
@@ -18,7 +18,8 @@ Keep the process proportional to the task. The main agent owns edits; subagents 
 - Cover all task changes, including committed, uncommitted, and new files. Preserve unrelated user work and keep reviewed content stable during review.
 - Use fresh reviewers and contexts for each full round. Give them requirements and source material without prior review verdicts.
 - Findings need a concrete location, evidence, and impact. Verify fixes and disputed rejections independently; avoid style churn or reopening settled issues without new evidence.
-- Reuse `simplify-code`'s four lenses and behavior-preservation criteria. This workflow governs review scope, delegation, and completion.
+- The simplify reviewer uses `simplify-code`'s four lenses and behavior-preservation criteria, returns findings and proposed edits only, and does not delegate further. This workflow governs review scope, delegation, and completion.
+- Reuse passing verification results across review rounds only while the checked delivery, relevant environment, and check conditions remain unchanged. Rerun affected checks after relevant changes.
 
 ## Completion
 
