@@ -1,0 +1,4 @@
+interface:
+  display_name: "Goal Dev Workflow"
+  short_description: "Develop goals with independent review gates"
+  default_prompt: "Use $goal-dev-workflow to plan, implement, and verify this coding goal with independent plan review and two clean simplify-and-review rounds."
