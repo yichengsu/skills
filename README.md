@@ -10,9 +10,9 @@ A collection of reusable skills for AI coding agents.
 | Skill | Purpose |
 | --- | --- |
 | [simplify-code](skills/simplify-code/SKILL.md) | Simplify recent changes for reuse, clarity, efficiency, and appropriate abstraction while preserving behavior. |
-| [goal-dev-workflow](skills/goal-dev-workflow/SKILL.md) | Develop coding goals with independent plan, simplification, and correctness reviews; use two clean rounds for high-risk tasks. |
+| [goal-dev-workflow](skills/goal-dev-workflow/SKILL.md) | Develop coding goals with independent plan review and two consecutive clean full simplification and correctness review rounds. |
 
-`goal-dev-workflow` requires `simplify-code` and an agent runtime with independent subagents. Standard review uses one full simplification and correctness review with focused follow-up for repairs. Strict review requires two clean full rounds on unchanged content for high-risk tasks or when explicitly requested.
+`goal-dev-workflow` requires `simplify-code` and an agent runtime with independent subagents. Every use requires independent plan review and two consecutive clean full simplification and correctness review rounds on the same unchanged delivery. Any delivery change restarts the count; focused repair checks do not replace full rounds.
 
 ## Install
 

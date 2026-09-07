@@ -1,6 +1,6 @@
 ---
 name: goal-dev-workflow
-description: Develop coding goals with independent plan, simplification, and correctness reviews. Use for coding work in goal mode or when this development workflow is requested, not for questions about goal mode or editing the workflow itself.
+description: Develop coding goals with independent plan review and two clean full simplification and correctness review rounds. Use for coding work in goal mode or when this development workflow is requested, not for questions about goal mode or editing the workflow itself.
 ---
 
 # Goal Dev Workflow
@@ -11,12 +11,7 @@ The main agent owns implementation, verification, and finding resolution. Subage
 
 Identify requirements, acceptance checks, a comparison baseline, and the task's file/hunk scope. Include committed, uncommitted, and new task files; preserve unrelated user work. Record enough scope and content identity to tell whether later reviews and checks still apply, such as a commit plus a scoped diff and new-file contents, or scoped content hashes. A commit SHA alone does not identify dirty content.
 
-Choose and state the review level before implementation:
-
-- **Standard:** One full simplify review and one full correctness review, with independent focused follow-up for subsequent repairs.
-- **Strict:** Two consecutive clean full simplify + correctness rounds on the same unchanged delivery. Use when explicitly requested or when changes pose high risk, such as destructive migrations, authorization changes, or concurrency changes that could corrupt persistent state. Explain the concrete risk rather than classifying by keywords alone.
-
-Keep plans and review depth proportional to the task. Do not silently downgrade a selected level to meet a budget.
+Every use of this workflow requires independent plan review and two consecutive clean full simplify + correctness review rounds on the same unchanged delivery. Keep plan detail and review depth proportional to the task, but do not reduce the required review stages or rounds based on task size, risk, or budget.
 
 ## Plan and implement
 
@@ -28,9 +23,9 @@ Keep plans and review depth proportional to the task. Do not silently downgrade 
 
 1. Have an independent subagent apply `simplify-code`'s four lenses and behavior-preservation criteria to the whole task scope. It returns findings and proposed edits without editing or further delegation.
 2. Resolve findings, apply worthwhile simplifications, and rerun affected checks. Have a different independent subagent review correctness, compatibility, edge cases, and whether relevant tests support the acceptance criteria across the whole task scope.
-3. Independently verify repairs and disputed rejections. In standard review, use focused follow-up for local changes, covering their effects on both simplification and correctness as applicable. Repeat the affected full review when changes alter the design, cross-cutting behavior, or invalidate its original coverage.
+3. Independently verify repairs and disputed rejections. Focused follow-up may confirm a repair or resolve a dispute, but cannot replace the required full rounds. After any delivery change, restart the clean-round count and obtain two complete clean rounds on the final unchanged delivery.
 
-Keep content stable during each review and associate results with its scope and content identity. If content changes during review, reconcile which results remain valid and review the affected content again before using those results for completion.
+Keep content stable during each review and associate results with its scope and content identity. If content changes during review, its findings may still inform repairs, but that review cannot count toward clean rounds on the changed delivery.
 
 ## Independence and finding resolution
 
@@ -42,10 +37,8 @@ Keep content stable during each review and associate results with its scope and 
 
 ## Completion
 
-Both levels require passing acceptance checks, resolved substantive findings, and review coverage that remains valid for the final delivery. Reuse passing verification results only while the checked content, relevant environment, and check conditions remain unchanged. Report unavailable or failed required verification without treating it as a pass.
+Completion requires passing acceptance checks, resolved substantive findings, and two consecutive clean full review rounds on the final unchanged delivery. Reuse passing verification results only while the checked content, relevant environment, and check conditions remain unchanged. Report unavailable or failed required verification without treating it as a pass.
 
-**Standard:** Complete after the full simplify and correctness reviews and any necessary independent repair or dispute checks. Local repairs do not automatically restart full reviews; their final effects must still be covered.
-
-**Strict:** After the last delivery change, obtain two consecutive full rounds in which both simplify and correctness reviewers examine the same unchanged delivery and find no new valid substantive issues. Use fresh reviewers for each full round. Any delivery change restarts this count; focused follow-up does not count. An edit between the two reviewers means that pair cannot count as a clean round on one delivery.
+After the last delivery change, obtain two consecutive full rounds in which both simplify and correctness reviewers examine the same unchanged delivery and find no new valid substantive issues. Use fresh reviewers for each full round. Any delivery change restarts this count; focused follow-up does not count. An edit between the two reviewers means that pair cannot count as a clean round on one delivery.
 
 Missing required independent review, unresolved substantive findings, failed or unavailable acceptance checks, and exhausted budgets are not completion. Report the concrete remaining work and any actual blocker without claiming the goal is achieved.
