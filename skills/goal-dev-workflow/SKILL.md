@@ -25,6 +25,8 @@ Every use of this workflow requires independent plan review and two consecutive 
 2. Resolve findings, apply worthwhile simplifications, and rerun affected checks. Have a different independent subagent review correctness, compatibility, edge cases, and whether relevant tests support the acceptance criteria across the whole task scope.
 3. Independently verify repairs and disputed rejections. Focused follow-up may confirm a repair or resolve a dispute, but cannot replace the required full rounds. After any delivery change, restart the clean-round count and obtain two complete clean rounds on the final unchanged delivery.
 
+A subsequent full review may also satisfy repair verification or resolve a disputed finding when its recorded analysis explicitly covers the relevant behavior and evidence; merely returning no findings is insufficient. No separate focused review is required in that case. Preserve the clean-context requirements for full reviews. If targeted context is still needed, provide it after the full-review result is recorded and reuse that reviewer for focused follow-up; a new agent is not required.
+
 Keep content stable during each review and associate results with its scope and content identity. If content changes during review, its findings may still inform repairs, but that review cannot count toward clean rounds on the changed delivery.
 
 ## Independence and finding resolution
